@@ -1,4 +1,6 @@
 using RPSGame.Domain.Entities;
+using RPSGame.Domain.Enums;
+
 
 namespace RPSGame.Application.Factories
 {
