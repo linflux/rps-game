@@ -1,0 +1,214 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Infrastructure/RPSGame.Infrastructure.csproj": {}
+  },
+  "projects": {
+    "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Application/RPSGame.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Application/RPSGame.Application.csproj",
+        "projectName": "RPSGame.Application",
+        "projectPath": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Application/RPSGame.Application.csproj",
+        "packagesPath": "/Users/leonardodias/.nuget/packages/",
+        "outputPath": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/leonardodias/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/RPSGame.Domain.csproj": {
+                "projectPath": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/RPSGame.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/RPSGame.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/RPSGame.Domain.csproj",
+        "projectName": "RPSGame.Domain",
+        "projectPath": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/RPSGame.Domain.csproj",
+        "packagesPath": "/Users/leonardodias/.nuget/packages/",
+        "outputPath": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/leonardodias/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Infrastructure/RPSGame.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Infrastructure/RPSGame.Infrastructure.csproj",
+        "projectName": "RPSGame.Infrastructure",
+        "projectPath": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Infrastructure/RPSGame.Infrastructure.csproj",
+        "packagesPath": "/Users/leonardodias/.nuget/packages/",
+        "outputPath": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/leonardodias/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Application/RPSGame.Application.csproj": {
+                "projectPath": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Application/RPSGame.Application.csproj"
+              },
+              "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/RPSGame.Domain.csproj": {
+                "projectPath": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/RPSGame.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

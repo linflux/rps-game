@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "ES6VL9U6PGY=",
+  "success": true,
+  "projectFilePath": "/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/RPSGame.Domain.csproj",
+  "expectedPackageFiles": [
+    "/Users/leonardodias/.nuget/packages/microsoft.extensions.dependencyinjection/9.0.3/microsoft.extensions.dependencyinjection.9.0.3.nupkg.sha512",
+    "/Users/leonardodias/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/9.0.3/microsoft.extensions.dependencyinjection.abstractions.9.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
