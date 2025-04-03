@@ -8,7 +8,7 @@ namespace RPSGame.Application.Services
         Player Player { get; }
         Player Computer { get; }
 
-        List<Move> GetAvailableMoves();
+        List<Move> GetAvailableMoves(GameLevel level);
 
         Move GetMove(string moveName);
 

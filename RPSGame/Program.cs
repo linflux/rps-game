@@ -50,7 +50,7 @@ class Program
         gameService.SetPlayers(playerName);
 
         // Get and display available moves
-        var availableMoves = gameService.GetAvailableMoves();
+        var availableMoves = gameService.GetAvailableMoves(level);
         DisplayAvailableMoves(availableMoves);
 
         // Determine the number of rounds

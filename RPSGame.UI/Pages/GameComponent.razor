@@ -43,13 +43,13 @@ else
 
     protected override void OnInitialized()
     {
-        Moves = GameService.GetAvailableMoves();
+        @* Moves = GameService.GetAvailableMoves(); *@
     }
 
     private void SetGameLevel(GameLevel level)
     {
         GameService.SetGameLevel(level);
-        Moves = GameService.GetAvailableMoves();
+        Moves = GameService.GetAvailableMoves(level);
         IsGameLevelSelected = true;
     }
 

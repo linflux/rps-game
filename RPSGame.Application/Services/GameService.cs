@@ -20,7 +20,7 @@ namespace RPSGame.Application.Services
         public GameService(IMoveEvaluator moveEvaluator)
         {
             _moveEvaluator = moveEvaluator;
-            _availableMoves = new List<Move>();
+            _availableMoves = MoveFactory.GetMoves(GameLevel.Easy);
             Player = new Player("Player");
             Computer = new Player("Computer");
         }
@@ -30,9 +30,10 @@ namespace RPSGame.Application.Services
             _availableMoves = MoveFactory.GetMoves(level);
         }
 
-        public List<Move> GetAvailableMoves()
+        public List<Move> GetAvailableMoves(GameLevel level)
         {
-            return _availableMoves; // _availableMoves is the private field storing available moves for the current game level.
+            _availableMoves = MoveFactory.GetMoves(level);
+            return _availableMoves;
         }
 
         public Move GetMove(string moveName)
@@ -63,7 +64,7 @@ namespace RPSGame.Application.Services
             return _availableMoves[_random.Next(_availableMoves.Count)];
         }
 
-        public string GetScore()
+        private string GetScore()
         {
             return $"{Player.Name}: {Player.Score.Value} - {Computer.Name}: {Computer.Score.Value}";
         }
