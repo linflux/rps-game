@@ -13,7 +13,7 @@ namespace RPSGame.Domain.Rules
                 // Easy Moves
                 { "Rock", new List<string> { "Scissors", "Lizard", "Sponge", "Fire", "Snake", "Human", "Wolf" } },
                 { "Paper", new List<string> { "Rock", "Spock", "Dragon", "Tree", "Water", "Air", "Lightning" } },
-                { "Scissors", new List<string> { "Paper", "Lizard", "Dragon", "Snake", "Human", "Tree", "Sponge" },
+                { "Scissors", new List<string> { "Paper", "Lizard", "Dragon", "Snake", "Human", "Tree", "Sponge" } },
 
                 // Intermediate Moves
                 { "Lizard", new List<string> { "Spock", "Paper", "Tree", "Air", "Water", "Dragon", "Wolf" } },
