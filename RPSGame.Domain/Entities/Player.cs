@@ -3,7 +3,7 @@ namespace RPSGame.Domain.Entities
     public class Player
     {
         public string Name { get; }
-        public int Score { get; private set; }
+        public Score Score { get; }
 
         public Player(string name)
         {
@@ -12,12 +12,17 @@ namespace RPSGame.Domain.Entities
                 throw new ArgumentException("Player name cannot be null or empty.");
             }
             Name = name;
-            Score = 0;
+            Score = new Score();
         }
 
         public void IncrementScore()
         {
-            Score++;
+            Score.Increment();
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} (Score: {Score})";
         }
     }
 }
