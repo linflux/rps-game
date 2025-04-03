@@ -1,0 +1,12 @@
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/RPSGame.Domain.csproj.AssemblyReference.cache
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/RPSGame.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/RPSGame.Domain.AssemblyInfoInputs.cache
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/RPSGame.Domain.AssemblyInfo.cs
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/RPSGame.Domain.csproj.CoreCompileInputs.cache
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/bin/Debug/net9.0/RPSGame.Domain.deps.json
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/bin/Debug/net9.0/RPSGame.Domain.dll
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/bin/Debug/net9.0/RPSGame.Domain.pdb
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/RPSGame.Domain.dll
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/refint/RPSGame.Domain.dll
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/RPSGame.Domain.pdb
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/ref/RPSGame.Domain.dll
