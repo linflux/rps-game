@@ -1,0 +1,91 @@
+@page "/game"
+@using RPSGame.Domain.Enums
+@inject IGameService GameService
+
+<h3>Rock-Paper-Scissors Game</h3>
+
+@if (!IsGameLevelSelected)
+{
+    <GameLevelSelector OnGameLevelSelected="SetGameLevel" />
+}
+else if (!IsPlayerNameSet)
+{
+    <PlayerNameInput OnPlayerNameSubmitted="SetPlayerName" />
+}
+else
+{
+    <div>
+        <h4>Player @GameService.Player.Name, choose your move hand</h4>
+
+        <MoveSelector Moves="Moves" OnMoveSelected="SetPlayer1Move" /> 
+    </div>
+
+    <button class="play-button" @onclick="PlayGame" disabled="@IsPlayButtonDisabled">
+        <i class="fas fa-play"></i> Play
+    </button>
+
+    @if (CurrentGamePlayResult != null)
+    {
+        <ComputerMoveDisplay ComputerMoveName="@ComputerMove" />
+    }
+
+    <ResultDisplay GamePlayResult="@CurrentGamePlayResult" />
+}
+
+@code {
+    private bool IsGameLevelSelected = false;
+    private bool IsPlayerNameSet = false;
+    private string Player1Move;
+    private string ComputerMove;
+    private GamePlayResult CurrentGamePlayResult;
+
+    private IEnumerable<Move> Moves;
+
+    protected override void OnInitialized()
+    {
+        Moves = GameService.GetAvailableMoves();
+    }
+
+    private void SetGameLevel(GameLevel level)
+    {
+        GameService.SetGameLevel(level);
+        Moves = GameService.GetAvailableMoves();
+        IsGameLevelSelected = true;
+    }
+
+    private void SetPlayerName(string playerName)
+    {
+        GameService.SetPlayers(playerName);
+        IsPlayerNameSet = true;
+    }
+
+    private void SetPlayer1Move(string moveName)
+    {
+        Player1Move = moveName;
+    }
+
+    private bool IsPlayButtonDisabled => string.IsNullOrWhiteSpace(Player1Move);
+
+
+    private void PlayGame()
+    {
+        ComputerMove = GameService.GetComputerMove().Name;
+
+        if (string.IsNullOrWhiteSpace(Player1Move) || string.IsNullOrWhiteSpace(ComputerMove))
+        {
+            @* Result = "Both players must select a move!"; *@
+            return;
+        }
+
+        try
+        {
+            var player = GameService.GetMove(Player1Move);
+            var opponent = GameService.GetMove(ComputerMove);
+            CurrentGamePlayResult = GameService.Play(player.Name, opponent.Name);
+        }
+        catch (Exception ex)
+        {
+            @* Result = $"Error: {ex.Message}"; *@
+        }
+    }
+}

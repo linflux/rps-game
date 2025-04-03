@@ -1,0 +1,30 @@
+<div class="card move-card @GetCardClass()" @onclick="SelectMove">
+    <img src="@ImageUrl" class="card-img-top" alt="@MoveName" />
+    <div class="card-body text-center">
+        <h5 class="card-title">@MoveName</h5>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string MoveName { get; set; } // Name of the move
+
+    [Parameter]
+    public string ImageUrl { get; set; } // URL of the image for the move
+
+    [Parameter]
+    public EventCallback<string> OnMoveSelected { get; set; } // Callback for when the move is selected
+
+    [Parameter]
+    public bool Selected { get; set; } // Indicates if the card is selected
+
+    private void SelectMove()
+    {
+        OnMoveSelected.InvokeAsync(MoveName);
+    }
+
+    private string GetCardClass()
+    {
+        return Selected ? "selected-card" : string.Empty;
+    }
+}

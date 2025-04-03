@@ -1,0 +1,33 @@
+<div class="computer-move-card">
+    <h4>Computer's Move</h4>
+    @if (!string.IsNullOrEmpty(ComputerMoveName))
+    {
+        <div class="move-display">
+            <img src="@GetImageUrl(ComputerMoveName)" alt="@ComputerMoveName" class="move-image" />
+            <p class="move-name">@ComputerMoveName</p>
+        </div>
+    }
+    else
+    {
+        <p class="no-move">No move yet!</p>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string ComputerMoveName { get; set; } // The name of the computer's move
+
+    private string GetImageUrl(string moveName)
+    {
+        // Map move names to image URLs
+        return moveName switch
+        {
+            "Rock" => "images/rock.png",
+            "Paper" => "images/paper.png",
+            "Scissors" => "images/scissors.png",
+            "Lizard" => "images/lizard.png",
+            "Spock" => "images/spock.png",
+            _ => "images/default.png"
+        };
+    }
+}

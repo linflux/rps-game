@@ -1,0 +1,18 @@
+@using RPSGame.Domain.Enums
+
+@code {
+    [Parameter]
+    public EventCallback<GameLevel> OnGameLevelSelected { get; set; }
+
+    private void SelectGameLevel(GameLevel level)
+    {
+        OnGameLevelSelected.InvokeAsync(level);
+    }
+}
+
+<h4>Select Game Level</h4>
+<div>
+    <button class="btn btn-primary" @onclick="() => SelectGameLevel(GameLevel.Easy)">Easy</button>
+    <button class="btn btn-warning" @onclick="() => SelectGameLevel(GameLevel.Intermediate)">Intermediate</button>
+    <button class="btn btn-danger" @onclick="() => SelectGameLevel(GameLevel.Hard)">Hard</button>
+</div>

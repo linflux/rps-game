@@ -1,0 +1,40 @@
+<div class="move-selector">
+    <div class="row">
+        @foreach (var move in Moves)
+        {
+            <div class="col-md-3 mb-3">
+                <MoveCard MoveName="@move.Name" ImageUrl="@GetImageUrl(move.Name)" OnMoveSelected="SelectMove" Selected="@(move.Name == SelectedMove)" />
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public IEnumerable<Move> Moves { get; set; } // List of available moves
+
+    [Parameter]
+    public EventCallback<string> OnMoveSelected { get; set; } // Callback for when a move is selected
+
+    private string SelectedMove { get; set; }
+
+    private void SelectMove(string moveName)
+    {
+        SelectedMove = moveName; // Update the selected move
+        OnMoveSelected.InvokeAsync(moveName);
+    }
+
+    private string GetImageUrl(string moveName)
+    {
+        // Map move names to image URLs
+        return moveName switch
+        {
+            "Rock" => "images/rock.png",
+            "Paper" => "images/paper.png",
+            "Scissors" => "images/scissors.png",
+            "Lizard" => "images/lizard.png",
+            "Spock" => "images/spock.png",
+            _ => "images/default.png"
+        };
+    }
+}

@@ -1,0 +1,36 @@
+@code {
+    [Parameter]
+    public EventCallback<string> OnPlayerNameSubmitted { get; set; }
+
+    private string PlayerName { get; set; }
+
+    private async Task SubmitPlayerName()
+    {
+        if (!string.IsNullOrWhiteSpace(PlayerName))
+        {
+            await OnPlayerNameSubmitted.InvokeAsync(PlayerName);
+        }
+        else
+        {
+            Console.WriteLine("Player name cannot be empty.");
+        }
+    }
+
+    private ElementReference PlayerNameInputRef;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await PlayerNameInputRef.FocusAsync(); // Set focus on the input field
+        }
+    }
+}
+
+<h4>Enter Player Name</h4>
+<div>
+    <form @onsubmit="SubmitPlayerName">
+        <input type="text" @bind="PlayerName" placeholder="Enter your name" class="form-control" @ref="PlayerNameInputRef" />
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    </form>
+</div>

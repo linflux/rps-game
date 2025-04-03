@@ -10,3 +10,4 @@
 /Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/refint/RPSGame.Domain.dll
 /Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/RPSGame.Domain.pdb
 /Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/ref/RPSGame.Domain.dll
+/Users/leonardodias/Documents/sources/rps-game/RPSGame.Domain/obj/Debug/net9.0/RPSGame.Domain.sourcelink.json

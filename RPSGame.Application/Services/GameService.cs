@@ -6,8 +6,11 @@ using RPSGame.Domain.Rules;
 
 namespace RPSGame.Application.Services
 {
-    public class GameService
+    public class GameService : IGameService
     {
+
+        private static readonly Random _random = new Random();
+
         private readonly IMoveEvaluator _moveEvaluator;
         private List<Move> _availableMoves;
 
@@ -18,8 +21,9 @@ namespace RPSGame.Application.Services
         {
             _moveEvaluator = moveEvaluator;
             _availableMoves = new List<Move>();
+            Player = new Player("Player");
+            Computer = new Player("Computer");
         }
-
 
         public void SetGameLevel(GameLevel level)
         {
@@ -31,6 +35,19 @@ namespace RPSGame.Application.Services
             return _availableMoves; // _availableMoves is the private field storing available moves for the current game level.
         }
 
+        public Move GetMove(string moveName)
+        {
+            if (string.IsNullOrWhiteSpace(moveName))
+                throw new ArgumentException("Move name cannot be null or empty.");
+
+            var move = _availableMoves.FirstOrDefault(m => m.Name.Equals(moveName, StringComparison.OrdinalIgnoreCase));
+
+            if (move == null)
+                throw new ArgumentException($"Move '{moveName}' is not available.");
+
+            return move;
+        }
+
         public void SetPlayers(string playerName)
         {
             Player = new Player(playerName);
@@ -40,9 +57,18 @@ namespace RPSGame.Application.Services
         public int GetPlayerScore() => Player.Score.Value;
 
         public int GetComputerScore() => Computer.Score.Value;
-        
 
-        public string Play(string playerMoveName, string opponentMoveName)
+        public Move GetComputerMove()
+        {
+            return _availableMoves[_random.Next(_availableMoves.Count)];
+        }
+
+        public string GetScore()
+        {
+            return $"{Player.Name}: {Player.Score.Value} - {Computer.Name}: {Computer.Score.Value}";
+        }
+
+        public GamePlayResult Play(string playerMoveName, string opponentMoveName)
         {
             var playerMove = _availableMoves.FirstOrDefault(m => m.Name == playerMoveName);
             var opponentMove = _availableMoves.FirstOrDefault(m => m.Name == opponentMoveName);
@@ -50,21 +76,29 @@ namespace RPSGame.Application.Services
             if (playerMove == null || opponentMove == null)
                 throw new ArgumentException("Invalid move");
 
-            var result = _moveEvaluator.Evaluate(playerMove, opponentMove);
+            var moveResult = _moveEvaluator.Evaluate(playerMove, opponentMove);
 
-            switch (result)
+            string message = moveResult switch
             {
-                case MoveResult.Win:
-                    Player.IncrementScore();
-                    return $"{playerMove.Name} beats {opponentMove.Name}!";
-                case MoveResult.Lose:
-                    Computer.IncrementScore();
-                    return $"{opponentMove.Name} beats {playerMove.Name}!";
-                case MoveResult.Tie:
-                    return "It's a tie!";
-                default:
-                    throw new InvalidOperationException("Unexpected result from move evaluation.");
-            }
+                MoveResult.Win => $"{playerMove.Name} beats {opponentMove.Name}!",
+                MoveResult.Lose => $"{opponentMove.Name} beats {playerMove.Name}!",
+                MoveResult.Tie => "It's a tie!",
+                _ => throw new InvalidOperationException("Unexpected result from move evaluation.")
+            };
+
+            if (moveResult == MoveResult.Win)
+                Player.IncrementScore();
+            else if (moveResult == MoveResult.Lose)
+                Computer.IncrementScore();
+
+            return new GamePlayResult
+            {
+                Message = message,
+                ScoreMessage = this.GetScore(),
+                MoveResult = moveResult,
+                PlayerScore = Player.Score.Value,
+                ComputerScore = Computer.Score.Value
+            };
         }
     }
 }

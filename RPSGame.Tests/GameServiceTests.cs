@@ -136,5 +136,29 @@ namespace RPSGame.Tests
             var result = _gameService.Play("Snake", "Lizard");
             Assert.AreEqual("Snake beats Lizard!", result);
         }
+
+        [TestMethod]
+        public void Rock_Beats_Seven_Moves()
+        {
+            var moveRules = new MoveRules();
+            var rockBeats = new List<string> { "Scissors", "Lizard", "Sponge", "Fire", "Snake", "Human", "Wolf" };
+
+            foreach (var move in rockBeats)
+            {
+                Assert.True(moveRules.Beats("Rock", move));
+            }
+        }
+
+        [TestMethod]
+        public void Rock_Does_Not_Beat_Invalid_Moves()
+        {
+            var moveRules = new MoveRules();
+            var invalidMoves = new List<string> { "Paper", "Spock", "Dragon", "Tree", "Water", "Air", "Lightning" };
+
+            foreach (var move in invalidMoves)
+            {
+                Assert.False(moveRules.Beats("Rock", move));
+            }
+        }
     }
 }

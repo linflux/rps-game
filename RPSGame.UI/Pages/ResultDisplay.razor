@@ -1,0 +1,27 @@
+@if (GamePlayResult != null)
+{
+    <div class="result-card @GetResultClass()">
+        <h3 class="result-message">@GamePlayResult.Message</h3>
+    </div>
+
+    <div class="score-card">
+        <h4 class="score-message">Score</h4>
+        <p>@GamePlayResult.ScoreMessage</p>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public GamePlayResult GamePlayResult { get; set; }
+
+    private string GetResultClass()
+    {
+        return GamePlayResult.MoveResult switch
+        {
+            MoveResult.Win => "result-win",
+            MoveResult.Lose => "result-lose",
+            MoveResult.Tie => "result-tie",
+            _ => string.Empty
+        };
+    }
+}
