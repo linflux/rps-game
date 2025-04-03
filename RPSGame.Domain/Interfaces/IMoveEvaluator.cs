@@ -1,9 +1,10 @@
 using RPSGame.Domain.Entities;
+using RPSGame.Domain.Enums;
 
 namespace RPSGame.Domain.Interfaces
 {
     public interface IMoveEvaluator
     {
-        bool Evaluate(Move move1, Move move2);
+        MoveResult Evaluate(Move move1, Move move2);
     }
 }

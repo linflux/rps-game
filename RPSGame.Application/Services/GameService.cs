@@ -1,7 +1,8 @@
 ﻿using RPSGame.Domain.Entities;
+using RPSGame.Domain.Enums;
 using RPSGame.Domain.Interfaces;
 using RPSGame.Application.Factories;
-using RPSGame.Application.Rules;
+using RPSGame.Domain.Rules;
 
 namespace RPSGame.Application.Services
 {
@@ -36,9 +37,9 @@ namespace RPSGame.Application.Services
             Computer = new Player("Computer");
         }
 
-        public int GetPlayerScore() => Player.Score;
+        public int GetPlayerScore() => Player.Score.Value;
 
-        public int GetComputerScore() => Computer.Score;
+        public int GetComputerScore() => Computer.Score.Value;
         
 
         public string Play(string playerMoveName, string opponentMoveName)
@@ -49,19 +50,21 @@ namespace RPSGame.Application.Services
             if (playerMove == null || opponentMove == null)
                 throw new ArgumentException("Invalid move");
 
-            if (playerMove.Beats(opponentMove))
-            {
-                Player.IncrementScore();
-                return $"{playerMove.Name} beats {opponentMove.Name}!";
-            }
-            
-            if (opponentMove.Beats(playerMove))
-            {
-                Computer.IncrementScore();
-                return $"{opponentMove.Name} beats {playerMove.Name}!";
-            }
+            var result = _moveEvaluator.Evaluate(playerMove, opponentMove);
 
-            return "It's a tie!";
+            switch (result)
+            {
+                case MoveResult.Win:
+                    Player.IncrementScore();
+                    return $"{playerMove.Name} beats {opponentMove.Name}!";
+                case MoveResult.Lose:
+                    Computer.IncrementScore();
+                    return $"{opponentMove.Name} beats {playerMove.Name}!";
+                case MoveResult.Tie:
+                    return "It's a tie!";
+                default:
+                    throw new InvalidOperationException("Unexpected result from move evaluation.");
+            }
         }
     }
 }

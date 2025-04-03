@@ -1,6 +1,6 @@
 using RPSGame.Domain.Entities;
 
-namespace RPSGame.Application.Rules
+namespace RPSGame.Domain.Rules
 {
     public class MoveRules
     {
