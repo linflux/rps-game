@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using RPSGame.Application.Services;
 using RPSGame.Domain.Entities;
 using RPSGame.Domain.Enums;
+using RPSGame.Application.Entities;
 
 namespace RPSGame.API.Controllers
 {
@@ -26,22 +27,51 @@ namespace RPSGame.API.Controllers
         [HttpPost("SetPlayerName")]
         public IActionResult SetPlayerName([FromBody] string playerName)
         {
-            _gameService.SetPlayers(playerName);
+            if (string.IsNullOrWhiteSpace(playerName))
+            {
+                return BadRequest("Player name cannot be empty.");
+            }
+            _gameService.SetPlayer(playerName);
+            Console.WriteLine($"Player name set to: {playerName}");
             return Ok("Player name set successfully.");
+        }
+
+        [HttpGet("GetPlayerName")]
+        public IActionResult GetPlayerName()
+        {
+            var playerName = _gameService.GetPlayerName();
+            Console.WriteLine($"Player name retrieved: {playerName}");
+            return Ok(playerName);
         }
 
         [HttpGet("GetAvailableMoves")]
         public IActionResult GetAvailableMoves(GameLevel level)
         {
-            var moves = _gameService.GetAvailableMoves(level);
+            var moves = _gameService.GetAvailableMoves(level)
+                        .Select(m => new ConcreteMove(m.Name))
+                        .ToList();
             return Ok(moves);
+        }
+
+        [HttpGet("GetMove")]
+        public IActionResult GetMove(string moveName)
+        {
+            var move = _gameService.GetMove(moveName);
+
+            if (move == null)
+            {
+                return NotFound($"Move '{moveName}' not found.");
+            }
+
+            return Ok(new ConcreteMove(move.Name));
         }
 
         [HttpGet("GetComputerMove")]
         public IActionResult GetComputerMove()
         {
             var move = _gameService.GetComputerMove();
-            return Ok(move);
+
+            return Ok(new ConcreteMove(move.Name));
         }
 
         [HttpPost("Play")]

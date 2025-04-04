@@ -8,14 +8,13 @@ namespace RPSGame.Application.Services
 {
     public class GameService : IGameService
     {
-
         private static readonly Random _random = new Random();
 
         private readonly IMoveEvaluator _moveEvaluator;
         private List<Move> _availableMoves;
 
-        public Player Player { get; private set; }
-        public Player Computer { get; private set; }
+        public Player Player { get; set; }
+        public Player Computer { get; set; }
 
         public GameService(IMoveEvaluator moveEvaluator)
         {
@@ -49,11 +48,24 @@ namespace RPSGame.Application.Services
             return move;
         }
 
-        public void SetPlayers(string playerName)
+        public void SetPlayer(string playerName)
         {
-            Player = new Player(playerName);
-            Computer = new Player("Computer");
+            if (Player == null)
+            {
+                Player = new Player(playerName); // Initialize Player if it doesn't exist
+            }
+            else
+            {
+                Player.Name = playerName; // Update the name without replacing the object
+            }
+
+            if (Computer == null)
+            {
+                Computer = new Player("Computer"); // Initialize Computer if it doesn't exist
+            }
         }
+
+        public string GetPlayerName() => Player?.Name ?? "Player";
 
         public int GetPlayerScore() => Player.Score.Value;
 
@@ -66,7 +78,7 @@ namespace RPSGame.Application.Services
 
         private string GetScore()
         {
-            return $"{Player.Name}: {Player.Score.Value} - {Computer.Name}: {Computer.Score.Value}";
+            return $"{Player?.Name}: {Player?.Score?.Value} - {Computer.Name}: {Computer.Score.Value}";
         }
 
         public GamePlayResult Play(string playerMoveName, string opponentMoveName)
@@ -97,7 +109,7 @@ namespace RPSGame.Application.Services
                 Message = message,
                 ScoreMessage = this.GetScore(),
                 MoveResult = moveResult,
-                PlayerScore = Player.Score.Value,
+                PlayerScore = Player?.Score?.Value,
                 ComputerScore = Computer.Score.Value
             };
         }

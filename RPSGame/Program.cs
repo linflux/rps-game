@@ -47,7 +47,7 @@ class Program
 
         // Set players in game service
         var playerName = GetPlayerName();
-        gameService.SetPlayers(playerName);
+        gameService.SetPlayer(playerName);
 
         // Get and display available moves
         var availableMoves = gameService.GetAvailableMoves(level);

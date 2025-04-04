@@ -1,5 +1,6 @@
 using RPSGame.Domain.Entities;
 using RPSGame.Domain.Enums;
+using RPSGame.Domain.Interfaces;
 
 namespace RPSGame.Application.Services
 {
@@ -17,8 +18,11 @@ namespace RPSGame.Application.Services
         int GetComputerScore();
         int GetPlayerScore();
         
-        GamePlayResult Play(string playerMoveName, string opponentMoveName);
         void SetGameLevel(GameLevel level);
-        void SetPlayers(string playerName);
+        void SetPlayer(string playerName);
+        string GetPlayerName();
+        
+        GamePlayResult Play(string playerMoveName, string opponentMoveName);
+
     }
 }

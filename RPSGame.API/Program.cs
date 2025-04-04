@@ -1,4 +1,5 @@
 using RPSGame.Application.Services;
+using RPSGame.Domain.Entities;
 using RPSGame.Domain.Interfaces;
 using RPSGame.Domain.Rules;
 using RPSGame.Infrastructure.Services;
@@ -14,6 +15,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Enable CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:5287") // Replace with your Blazor app's URL
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+// builder.Services.AddScoped<IPlayer, Player>(sp => new Player("Player")); // Default Player
+// builder.Services.AddScoped<IPlayer, Player>(sp => new Player("Computer")); // Default Computer
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IMoveEvaluator, DefaultMoveEvaluator>();
 
@@ -28,8 +42,10 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
 
+app.UseHttpsRedirection();
+app.UseCors(); // Add this line to enable CORS
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

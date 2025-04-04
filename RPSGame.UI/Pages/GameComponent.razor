@@ -1,8 +1,9 @@
 @page "/game"
 @using RPSGame.Domain.Enums
-@inject IGameService GameService
+@inject GameApiService GameApiService
 
 <h3>Rock-Paper-Scissors Game</h3>
+
 
 @if (!IsGameLevelSelected)
 {
@@ -15,9 +16,9 @@ else if (!IsPlayerNameSet)
 else
 {
     <div>
-        <h4>Player @GameService.Player.Name, choose your move hand</h4>
+        <h4>Player @PlayerName, choose your move hand</h4>
 
-        <MoveSelector Moves="Moves" OnMoveSelected="SetPlayer1Move" /> 
+        <MoveSelector Moves="Moves" OnMoveSelected="SetPlayerMove" /> 
     </div>
 
     <button class="play-button" @onclick="PlayGame" disabled="@IsPlayButtonDisabled">
@@ -35,57 +36,68 @@ else
 @code {
     private bool IsGameLevelSelected = false;
     private bool IsPlayerNameSet = false;
-    private string Player1Move;
+    private string PlayerName;
+    private string PlayerMove;
     private string ComputerMove;
     private GamePlayResult CurrentGamePlayResult;
 
-    private IEnumerable<Move> Moves;
+    private List<ConcreteMove> Moves;
 
     protected override void OnInitialized()
     {
-        @* Moves = GameService.GetAvailableMoves(); *@
     }
 
-    private void SetGameLevel(GameLevel level)
+    private async Task SetGameLevel(GameLevel level)
     {
-        GameService.SetGameLevel(level);
-        Moves = GameService.GetAvailableMoves(level);
-        IsGameLevelSelected = true;
-    }
-
-    private void SetPlayerName(string playerName)
-    {
-        GameService.SetPlayers(playerName);
-        IsPlayerNameSet = true;
-    }
-
-    private void SetPlayer1Move(string moveName)
-    {
-        Player1Move = moveName;
-    }
-
-    private bool IsPlayButtonDisabled => string.IsNullOrWhiteSpace(Player1Move);
-
-
-    private void PlayGame()
-    {
-        ComputerMove = GameService.GetComputerMove().Name;
-
-        if (string.IsNullOrWhiteSpace(Player1Move) || string.IsNullOrWhiteSpace(ComputerMove))
-        {
-            @* Result = "Both players must select a move!"; *@
-            return;
-        }
-
         try
         {
-            var player = GameService.GetMove(Player1Move);
-            var opponent = GameService.GetMove(ComputerMove);
-            CurrentGamePlayResult = GameService.Play(player.Name, opponent.Name);
+            Console.WriteLine($"Setting game level to: {level}");
+            await GameApiService.SetGameLevel(level);
+            Moves = await GameApiService.GetAvailableMoves();
+
+            IsGameLevelSelected = true;
         }
         catch (Exception ex)
         {
-            @* Result = $"Error: {ex.Message}"; *@
+            Console.WriteLine($"Error setting game level: {ex.Message}");
+        }
+    }
+
+    private async Task SetPlayerName(string playerName)
+    {
+        await GameApiService.SetPlayerName(playerName);
+        PlayerName = playerName;
+
+        PlayerName = await GameApiService.GetPlayerName();
+
+        
+        IsPlayerNameSet = true;
+    }
+
+    private void SetPlayerMove(string moveName)
+    {
+        PlayerMove = moveName;
+    }
+
+    private bool IsPlayButtonDisabled => string.IsNullOrWhiteSpace(PlayerMove);
+
+
+    private async Task PlayGame()
+    {
+        try
+        {
+            var player = await GameApiService.GetMove(PlayerMove);
+            var opponent = await GameApiService.GetComputerMove();
+            
+            ComputerMove = opponent.Name;
+            CurrentGamePlayResult = await GameApiService.Play(player.Name, opponent.Name);
+            
+    
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            CurrentGamePlayResult = null;
         }
     }
 }
