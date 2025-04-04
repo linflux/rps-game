@@ -1,6 +1,6 @@
-@page "/game"
+@page "/gamewebapi"
 @using RPSGame.Domain.Enums
-@inject IGameService GameService
+@inject GameApiService GameApiService
 
 <h3>Rock-Paper-Scissors Game</h3>
 
@@ -41,19 +41,19 @@ else
     private string ComputerMove;
     private GamePlayResult CurrentGamePlayResult;
 
-    private List<Move> Moves;
+    private List<ConcreteMove> Moves;
 
     protected override void OnInitialized()
     {
     }
 
-    private void SetGameLevel(GameLevel level)
+    private async Task SetGameLevel(GameLevel level)
     {
         try
         {
             Console.WriteLine($"Setting game level to: {level}");
-            GameService.SetGameLevel(level);
-            Moves = GameService.GetAvailableMoves(level);
+            await GameApiService.SetGameLevel(level);
+            Moves = await GameApiService.GetAvailableMoves();
 
             IsGameLevelSelected = true;
         }
@@ -63,13 +63,13 @@ else
         }
     }
 
-    private void SetPlayerName(string playerName)
+    private async Task SetPlayerName(string playerName)
     {
-        GameService.SetPlayer(playerName);
-
+        await GameApiService.SetPlayerName(playerName);
         PlayerName = playerName;
 
-        PlayerName = GameService.GetPlayerName();
+        PlayerName = await GameApiService.GetPlayerName();
+
         
         IsPlayerNameSet = true;
     }
@@ -82,15 +82,17 @@ else
     private bool IsPlayButtonDisabled => string.IsNullOrWhiteSpace(PlayerMove);
 
 
-    private void PlayGame()
+    private async Task PlayGame()
     {
         try
         {
-            var player = GameService.GetMove(PlayerMove);
-            var opponent = GameService.GetComputerMove();
+            var player = await GameApiService.GetMove(PlayerMove);
+            var opponent = await GameApiService.GetComputerMove();
             
             ComputerMove = opponent.Name;
-            CurrentGamePlayResult = GameService.Play(player.Name, opponent.Name);
+            CurrentGamePlayResult = await GameApiService.Play(player.Name, opponent.Name);
+            
+    
         }
         catch (Exception ex)
         {
